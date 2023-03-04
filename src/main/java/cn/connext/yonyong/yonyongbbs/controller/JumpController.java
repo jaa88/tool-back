@@ -76,72 +76,7 @@ public class JumpController {
      */
     @RequestMapping("/topermission")
     public String topermission(HttpSession session,Model model,HttpServletResponse response){
-        User user= (User) session.getAttribute("rs_user");
-        if (user==null){
-            response.setContentType("text/html; charset=UTF-8"); //转码
-            PrintWriter out = null;
-            try {
-                out = response.getWriter();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            out.flush();
-            out.println("<script>");
-            out.println("alert('您当前尚未登陆，请先登录！');");
-            out.println("history.back();");
-            out.println("</script>");
-            return "article";
-        }
-        int id=user.getId();
-        List<Role> allRole=roleService.selectAllRoleByPage(0);
-        List<User> allUser=userService.selectAllUserByPage(0);
-
-        User_role user_role=user_roleService.queryByUserId(id);
-        Role myRole=roleService.selectRoleById(user_role.getRoleid());
-        //用于用户列表编辑角色所有角色列表的展示
-        List<Role> allUserRole=roleService.selectAllRole();
-
-        model.addAttribute("allUserRole",allUserRole);
-
-        List myPermission= new ConvertRole().toList(role_perService.selectPermission(myRole.getId()));
-        model.addAttribute("myRole",myRole);
-        model.addAttribute("myPermission",myPermission);
-        model.addAttribute("allRole",allRole);
-         if (allUser.size() > 0 && allUser.get(0) != null) {
-             User_role user_role1=user_roleService.queryByUserId(allUser.get(0).getId());
-             Role userRole0=roleService.selectRoleById(user_role1.getRoleid());
-             model.addAttribute("user0", allUser.get(0));
-             model.addAttribute("userRole0", userRole0);
-         }
-         if (allUser.size() > 1 && allUser.get(1) != null) {
-             User_role user_role1=user_roleService.queryByUserId(allUser.get(1).getId());
-             Role userRole1=roleService.selectRoleById(user_role1.getRoleid());
-             model.addAttribute("userRole1", userRole1);
-             model.addAttribute("user1", allUser.get(1));
-            }
-        if (allUser.size()>2&&allUser.get(2)!=null){
-            User_role user_role1=user_roleService.queryByUserId(allUser.get(2).getId());
-            Role userRole2=roleService.selectRoleById(user_role1.getRoleid());
-            model.addAttribute("userRole2", userRole2);
-            model.addAttribute("user2",allUser.get(2));
-        }
-
-        if (allRole.size()>0&&allRole.get(0)!=null)
-            model.addAttribute("role0",allRole.get(0));
-        if (allRole.size()>1&&allRole.get(1)!=null)
-            model.addAttribute("role1",allRole.get(1));
-        if (allRole.size()>2&&allRole.get(2)!=null)
-            model.addAttribute("role2",allRole.get(2));
-
-        model.addAttribute("userpage",1);
-        model.addAttribute("rolepage",1);
-        List<Role> roles=roleService.selectAllRole();
-        model.addAttribute("roles",roles);
-
-        if (myRole.getLevel()==1)
-            return "userPermission";
         return "permission";
-
     }
     /**
      * 前往注册页面

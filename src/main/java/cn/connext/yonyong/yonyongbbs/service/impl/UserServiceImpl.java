@@ -2,10 +2,10 @@ package cn.connext.yonyong.yonyongbbs.service.impl;
 
 import cn.connext.yonyong.yonyongbbs.dao.UserDao;
 import cn.connext.yonyong.yonyongbbs.entity.User;
+import cn.connext.yonyong.yonyongbbs.entity.manage.QueryUserListParam;
 import cn.connext.yonyong.yonyongbbs.service.UserService;
-import cn.connext.yonyong.yonyongbbs.util.MD5Utils;
+import cn.connext.yonyong.yonyongbbs.util.TransferNameUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,31 +16,19 @@ public class UserServiceImpl implements UserService{
     UserDao userDao;
 
     @Override
-    public List<User> selectAllUser() {
-        return userDao.selectAllUser();
+    public Integer selectAllUserCount(QueryUserListParam param) {
+        return userDao.selectAllUserCount(param);
     }
 
     @Override
-    public List<User> selectAllUserByPage(int page) {
-        return userDao.selectAllUserByPage(page);
-    }
-
-    @Override
-//    @Cacheable(value="selectUserByTel-key")
-    public User selectUserByTel(String tel) {
-        return userDao.selectUserByTel(tel);
-    }
-
-    @Override
-    public void addUser(String nickname, String tel, String password) {
-        password=MD5Utils.getMD5(password);
-        userDao.addUser(nickname,tel,password);
-    }
-
-    @Override
-//    @Cacheable(value="selectUser-key")
-    public User selectUser(String tel, String password) {
-        password= MD5Utils.getMD5(password);
-        return userDao.selectUser(tel,password);
+    public List<User> selectUserListByParam(QueryUserListParam param) {
+        param.setStartIndex((param.getPageNo()-1)*param.getPageSize());
+        List<User> userList=userDao.selectUserListByParam(param);
+        if(!userList.isEmpty()){
+            for(User user:userList){
+                user.setUserCategoryName(TransferNameUtil.transferUserCategoryName(user.getUserCategory()));
+            }
+        }
+        return userList;
     }
 }

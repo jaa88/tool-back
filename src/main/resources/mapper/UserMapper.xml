@@ -9,26 +9,31 @@
         <result property="name" column="name"/>
         <result property="idcardNo" column="idcard_no"/>
         <result property="age" column="age"/>
-        <result property="category1" column="category_1"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="dutyCategory" column="duty_category"/>
+        <result property="userCategory" column="user_category"/>
+        <result property="serviceStatus" column="service_status"/>
     </resultMap>
 
+    <select id="selectAllUserCount" parameterType="cn.connext.yonyong.yonyongbbs.entity.manage.QueryUserListParam" resultType="int">
+          select count(1) from user
 
-    <select id="selectAllUserByPage" parameterType="int" resultMap="userMap">
-          select * from user order by id DESC limit #{page},3
-        </select>
-    <select id="selectAllUser" resultMap="userMap">
-      select * from user
-    </select>
-    <select id="selectUserByTel" parameterType="String" resultType="User">
-      select * from user where tel=#{tel}
-    </select>
+        <where>
+            <if test="name != null and  name !=''">
+                and name like concat ('%',#{name},'%')
+            </if>
 
-    <select id="selectUser" resultType="User">
-      select * from user where tel=#{tel} and password=#{password}
+        </where>
+
     </select>
 
-    <insert id="addUser">
-        insert into user(nickname,tel,password) values (#{nickname},#{tel},#{password})
-    </insert>
-
+    <select id="selectUserListByParam" parameterType="cn.connext.yonyong.yonyongbbs.entity.manage.QueryUserListParam" resultMap="userMap">
+          select * from user
+        <where>
+            <if test="name != null and  name !=''">
+                and name like concat ('%',#{name},'%')
+            </if>
+        </where>
+        limit #{ startIndex},#{  pageSize}
+    </select>
 </mapper>

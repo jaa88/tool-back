@@ -126,114 +126,12 @@ public class PageController {
 
     @RequestMapping("/userpage")
     public String userpage(@RequestParam("userpage")int userpage, Model model, HttpSession session){
-        //如果传递过来的页数<1或者传过来的页数能展示的信息超过了数据库里的条数，即会空出一页或者更多，则将页数置为1
-        User user= (User) session.getAttribute("rs_user");
-        int id=user.getId();
-        int rs=userService.selectAllUser().size();
-        if(userpage<1||(userpage-1)*3>=rs)
-            userpage=1;
 
-        //用于角色列表展示
-        List<Role> allRole=roleService.selectAllRoleByPage(0);
-        //用于用户列表展示
-        List<User> allUser=userService.selectAllUserByPage((userpage-1)*3);
-
-        //用于用户列表编辑角色所有角色列表的展示
-        List<Role> allUserRole=roleService.selectAllRole();
-        //用于展示当前登录用户的角色
-        User_role user_role=user_roleService.queryByUserId(id);
-        Role myRole=roleService.selectRoleById(user_role.getRoleid());
-        //用于展示当前登录用户的权限
-        List myPermission= new ConvertRole().toList(role_perService.selectPermission(myRole.getId()));
-        model.addAttribute("myRole",myRole);
-        model.addAttribute("allUserRole",allUserRole);
-        model.addAttribute("myPermission",myPermission);
-        if (allUser.size()>0&&allUser.get(0)!=null){
-            User_role user_role1=user_roleService.queryByUserId(allUser.get(0).getId());
-            Role userRole1=roleService.selectRoleById(user_role1.getRoleid());
-            model.addAttribute("userRole0", userRole1);
-            model.addAttribute("user0",allUser.get(0));
-        }
-        if (allUser.size()>1&&allUser.get(1)!=null){
-            User_role user_role1=user_roleService.queryByUserId(allUser.get(1).getId());
-            Role userRole1=roleService.selectRoleById(user_role1.getRoleid());
-            model.addAttribute("userRole1", userRole1);
-            model.addAttribute("user1",allUser.get(1));
-        }
-        if (allUser.size()>2&&allUser.get(2)!=null){
-            User_role user_role1=user_roleService.queryByUserId(allUser.get(2).getId());
-            Role userRole1=roleService.selectRoleById(user_role1.getRoleid());
-            model.addAttribute("userRole2", userRole1);
-            model.addAttribute("user2",allUser.get(2));
-        }
-
-        if (allRole.size()>0&&allRole.get(0)!=null)
-            model.addAttribute("role0",allRole.get(0));
-        if (allRole.size()>1&&allRole.get(1)!=null)
-            model.addAttribute("role1",allRole.get(1));
-        if (allRole.size()>2&&allRole.get(2)!=null)
-            model.addAttribute("role2",allRole.get(2));
-
-        System.out.println(allUser.size());
-    System.out.println(userpage);
-
-        model.addAttribute("userpage",userpage);
-        model.addAttribute("rolepage",1);
         return "permission";
     }
 
     @RequestMapping("/rolepage")
     public String rolepage(@RequestParam("rolepage")int rolepage, Model model, HttpSession session){
-        //如果传递过来的页数<1或者传过来的页数能展示的信息超过了数据库里的条数，即会空出一页或者更多，则将页数置为1
-        User user= (User) session.getAttribute("rs_user");
-        int id=user.getId();
-        int rs=roleService.selectAllRole().size();
-        if(rolepage<1||(rolepage-1)*3>=rs)
-            rolepage=1;
-
-        List<Role> allRole=roleService.selectAllRoleByPage((rolepage-1)*3);
-        List<User> allUser=userService.selectAllUserByPage(0);
-
-        User_role user_role=user_roleService.queryByUserId(id);
-        Role myRole=roleService.selectRoleById(user_role.getRoleid());
-
-        //用于用户列表编辑角色所有角色列表的展示
-        List<Role> allUserRole=roleService.selectAllRole();
-        model.addAttribute("allUserRole",allUserRole);
-
-        List myPermission= new ConvertRole().toList(role_perService.selectPermission(myRole.getId()));
-        model.addAttribute("myRole",myRole);
-        model.addAttribute("myPermission",myPermission);
-        if (allUser.size() > 0 && allUser.get(0) != null) {
-            User_role user_role1=user_roleService.queryByUserId(allUser.get(0).getId());
-            Role userRole0=roleService.selectRoleById(user_role1.getRoleid());
-            model.addAttribute("user0", allUser.get(0));
-            model.addAttribute("userRole0", userRole0);
-        }
-        if (allUser.size() > 1 && allUser.get(1) != null) {
-            User_role user_role1=user_roleService.queryByUserId(allUser.get(1).getId());
-            Role userRole1=roleService.selectRoleById(user_role1.getRoleid());
-            model.addAttribute("userRole1", userRole1);
-            model.addAttribute("user1", allUser.get(1));
-        }
-        if (allUser.size()>2&&allUser.get(2)!=null){
-            User_role user_role1=user_roleService.queryByUserId(allUser.get(2).getId());
-            Role userRole2=roleService.selectRoleById(user_role1.getRoleid());
-            model.addAttribute("userRole2", userRole2);
-            model.addAttribute("user2",allUser.get(2));
-        }
-
-        if (allRole.size()>0&&allRole.get(0)!=null)
-            model.addAttribute("role0",allRole.get(0));
-        if (allRole.size()>1&&allRole.get(1)!=null)
-            model.addAttribute("role1",allRole.get(1));
-        if (allRole.size()>2&&allRole.get(2)!=null)
-            model.addAttribute("role2",allRole.get(2));
-
-        List<Role> roles=roleService.selectAllRole();
-        model.addAttribute("rolepage",rolepage);
-        model.addAttribute("userpage",1);
-        model.addAttribute("roles",roles);
         return "permission";
     }
 

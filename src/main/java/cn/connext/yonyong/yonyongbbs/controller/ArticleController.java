@@ -67,22 +67,7 @@ public class ArticleController {
                              @RequestParam("addArticleContent")String addArticleContent,
                                 HttpSession session){
 
-        Date date=new Date();
-        User user= (User) session.getAttribute("rs_user");
-        if (user==null){
-            String jsonStr = "{\"errorCode\":\"0\",\"errorMessage\":\"尚未登陆！\"}";
-            return jsonStr;
-        }
-        if(! (license.hasArticlePermission("发布文章",user)))
-        {
-            String jsonStr = "{\"errorCode\":\"2\",\"errorMessage\":\"没有该权限！\"}";
-            return jsonStr;
-        }
-        int id=user.getId();
-        String author=user.getNickname();
-        articleService.addArticle(id,addArticleTitle,author,date,addArticleContent);
-        String jsonStr = "{\"errorCode\":\"1\",\"errorMessage\":\"发布成功！\"}";
-        return jsonStr;
+        return "";
     }
 
     @RequestMapping("/editArticle")
@@ -155,20 +140,6 @@ public class ArticleController {
     public String addReply(@RequestParam("articleId")int articleId,
                            @RequestParam("reply_content")String reply_content,
                            HttpSession session){
-        Date date=new Date();
-        User user= (User) session.getAttribute("rs_user");
-        if (user==null){
-            String jsonStr = "{\"errorCode\":\"0\",\"errorMessage\":\"尚未登陆！\"}";
-            return jsonStr;
-        }
-        if(! (license.hasArticlePermission("评论文章",user)))
-        {
-            String jsonStr = "{\"errorCode\":\"2\",\"errorMessage\":\"没有该权限！\"}";
-            return jsonStr;
-        }
-        String replyer=user.getNickname();
-        replyService.addReply(articleId,replyer,date,reply_content);
-        String jsonStr = "{\"errorCode\":\"1\",\"errorMessage\":\"评论成功！\"}";
-        return jsonStr;
+      return "";
     }
 }

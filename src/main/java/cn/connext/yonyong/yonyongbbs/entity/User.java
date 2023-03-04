@@ -5,40 +5,30 @@ package cn.connext.yonyong.yonyongbbs.entity;
  */
 public class User {
     private int id;
-    private long policeNo;
-    private String name;
+    //身份证号
     private String idcardNo;
+    //年龄
     private int age;
-    private int category1;//1 民警 2 铁骑 3 外围 4 其他
-    private int category2;
+    //姓名
+    private String name;
+    //警号
+    private long policeNo;
+    //手机号
+    private String phoneNumber;
+    //用户类别  1 领导 2事故民警 3铁骑民警 4外围民警 5其他民警 6 铁骑辅警 7 重骑辅警 8 外围辅警 9 其他辅警
+    private Integer userCategory;
+    private String userCategoryName;
+    //在职状态  1 在职 2离职 3调离
+    private int serviceStatus;
+    //值班组别 A B C D
+    private Character dutyCategory;
 
-
-    private String nickname;
-    private String tel;
-    private String password;
-
-    public String getNickname() {
-        return nickname;
+    public String getUserCategoryName() {
+        return userCategoryName;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getTel() {
-        return tel;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserCategoryName(String userCategoryName) {
+        this.userCategoryName = userCategoryName;
     }
 
     public int getId() {
@@ -81,19 +71,35 @@ public class User {
         this.age = age;
     }
 
-    public int getCategory1() {
-        return category1;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setCategory1(int category1) {
-        this.category1 = category1;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public int getCategory2() {
-        return category2;
+    public Integer getUserCategory() {
+        return userCategory;
     }
 
-    public void setCategory2(int category2) {
-        this.category2 = category2;
+    public void setUserCategory(Integer userCategory) {
+        this.userCategory = userCategory;
+    }
+
+    public int getServiceStatus() {
+        return serviceStatus;
+    }
+
+    public void setServiceStatus(int serviceStatus) {
+        this.serviceStatus = serviceStatus;
+    }
+
+    public Character getDutyCategory() {
+        return dutyCategory;
+    }
+
+    public void setDutyCategory(Character dutyCategory) {
+        this.dutyCategory = dutyCategory;
     }
 }

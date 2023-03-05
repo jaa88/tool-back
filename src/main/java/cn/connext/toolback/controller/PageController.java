@@ -73,35 +73,6 @@ public class PageController {
 
     @RequestMapping("/mypage")
     public String mypage(@RequestParam("mypage")int mypage, Model model, HttpSession session){
-        //如果传递过来的页数<1或者传过来的页数能展示的信息超过了数据库里的条数，即会空出一页或者更多，则将页数置为1
-       int tmypage=mypage;
-        User user= (User) session.getAttribute("rs_user");
-        int id=user.getId();
-        int rs=articleService.selectAllArticleByUserId(id).size();
-        if(mypage<1||(mypage-1)*3>=rs)
-            tmypage=1;
-
-        List<Article> articleList=articleService.selectAllArticleByUserId(id);
-        List<ShowArticle> list=new ArrayList<ShowArticle>();
-        for(Article t:articleList){
-            ShowArticle showArticle=new ShowArticle();
-            showArticle.setArticle_id(t.getId());
-            showArticle.setArticle_author(t.getAuthor());
-            showArticle.setArticle_date(t.getDate());
-            showArticle.setArticle_title(t.getTitle());
-            showArticle.setCount(replyService.selectAllReplyByArticleID(t.getId()).size()==0?0:replyService.selectAllReplyByArticleID(t.getId()).size());
-            showArticle.setReply_date(replyService.selectAllReplyByArticleID(t.getId()).size()==0?null:replyService.selectAllReplyByArticleID(t.getId()).get(0).getDate());
-            list.add(showArticle);
-        }
-        list= ArticleSort.articleSort(list);
-        System.out.println("mypage的值为："+tmypage);
-        if (list.size()>((tmypage-1)*3)&&list.get((tmypage-1)*3)!=null)
-            model.addAttribute("list0",list.get((tmypage-1)*3));
-        if (list.size()>((tmypage-1)*3+1)&&list.get((tmypage-1)*3+1)!=null)
-            model.addAttribute("list1",list.get((tmypage-1)*3+1));
-        if (list.size()>((tmypage-1)*3+2)&&list.get((tmypage-1)*3+2)!=null)
-            model.addAttribute("list2",list.get((tmypage-1)*3+2));
-        model.addAttribute("mypage",tmypage);
         return "myarticle";
     }
 

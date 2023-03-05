@@ -16,4 +16,10 @@ public interface UserService {
      * @return
      */
     List<User> selectUserListByParam(QueryUserListParam param);
+
+    Integer addUser(User user);
+
+    Integer editUser(User user);
+
+    Integer deleteUserInfo(User user);
 }

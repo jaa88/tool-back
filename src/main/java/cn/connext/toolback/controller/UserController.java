@@ -1,5 +1,6 @@
 package cn.connext.toolback.controller;
 
+import cn.connext.toolback.entity.ResultResponse;
 import cn.connext.toolback.entity.User;
 import cn.connext.toolback.entity.manage.QueryUserListParam;
 import cn.connext.toolback.entity.manage.QueryUserListResponse;
@@ -35,4 +36,31 @@ public class UserController {
         return response;
     }
 
+    //更新或者新增用户信息
+    @RequestMapping("/editUserInfoOrAddUserInfo")
+    @ResponseBody
+    public ResultResponse editUserInfoOrAddUserInfo(@RequestBody User user, HttpServletRequest request){
+        ResultResponse resultResponse=new ResultResponse();
+        int count=user.getId()!=null?userService.editUser(user):userService.addUser(user);
+       if(count==1){
+           resultResponse.setSuccessFlag(true);
+       }else{
+           resultResponse.setSuccessFlag(false);
+       }
+        return resultResponse;
+    }
+
+    //删除用户信息
+    @RequestMapping("/deleteUserInfo")
+    @ResponseBody
+    public ResultResponse deleteUserInfo(@RequestBody User user, HttpServletRequest request){
+        ResultResponse resultResponse=new ResultResponse();
+        int count=userService.deleteUserInfo(user);
+        if(count==1){
+            resultResponse.setSuccessFlag(true);
+        }else{
+            resultResponse.setSuccessFlag(false);
+        }
+        return resultResponse;
+    }
 }

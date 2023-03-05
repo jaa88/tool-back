@@ -7,33 +7,72 @@
         <id property="id" column="id"/>
         <result property="policeNo" column="police_no"/>
         <result property="name" column="name"/>
-        <result property="idcardNo" column="idcard_no"/>
-        <result property="age" column="age"/>
         <result property="phoneNumber" column="phone_number"/>
         <result property="dutyCategory" column="duty_category"/>
         <result property="userCategory" column="user_category"/>
-        <result property="serviceStatus" column="service_status"/>
+        <result property="orderNum" column="order_num"/>
     </resultMap>
 
     <select id="selectAllUserCount" parameterType="cn.connext.toolback.entity.manage.QueryUserListParam" resultType="int">
           select count(1) from user
 
         <where>
+            delete_flag=1
+
             <if test="name != null and  name !=''">
                 and name like concat ('%',#{name},'%')
             </if>
 
-        </where>
+            <if test="policeNo != null and  policeNo !=0">
+                and police_no = #{policeNo}
+            </if>
 
+            <if test="userCategory != null and  userCategory !=0">
+                and user_category = #{userCategory}
+            </if>
+
+            <if test="dutyCategory != null and  dutyCategory !=''">
+                and duty_category = #{dutyCategory}
+            </if>
+
+        </where>
     </select>
 
     <select id="selectUserListByParam" parameterType="cn.connext.toolback.entity.manage.QueryUserListParam" resultMap="userMap">
           select * from user
         <where>
+            delete_flag=1
             <if test="name != null and  name !=''">
                 and name like concat ('%',#{name},'%')
             </if>
+
+            <if test="policeNo != null and  policeNo !=0">
+                and police_no = #{policeNo}
+            </if>
+
+            <if test="userCategory != null and  userCategory !=0">
+                and user_category = #{userCategory}
+            </if>
+
+            <if test="dutyCategory != null and  dutyCategory !=''">
+                and duty_category = #{dutyCategory}
+            </if>
         </where>
+
+        order by order_num ,id
         limit #{ startIndex},#{  pageSize}
     </select>
+
+    <insert id="addUser"  parameterType="cn.connext.toolback.entity.User">
+            insert into user (police_no, name,  phone_number,  user_category, duty_category, order_num)  value (#{policeNo},#{name},#{phoneNumber},#{userCategory},#{dutyCategory},#{orderNum})
+    </insert>
+
+    <update id="editUser" parameterType="cn.connext.toolback.entity.User">
+            update user set police_no=#{policeNo},name=#{name}, phone_number=#{phoneNumber},
+            user_category=#{userCategory}, duty_category=#{dutyCategory}, order_num=#{orderNum} where id=#{id}
+    </update>
+
+    <update id="deleteUser" parameterType="cn.connext.toolback.entity.User">
+            update user set delete_flag=2 where id=#{id}
+    </update>
 </mapper>

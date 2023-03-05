@@ -15,4 +15,10 @@ public interface UserDao {
     Integer selectAllUserCount(QueryUserListParam queryUserListParam);
     //查询所有符合条件的数据
     List<User> selectUserListByParam(QueryUserListParam queryUserListParam);
+
+    int addUser(User user);
+
+    int editUser(User user);
+
+    int deleteUser(User user);
 }

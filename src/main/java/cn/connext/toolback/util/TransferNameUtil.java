@@ -24,4 +24,12 @@ public class TransferNameUtil {
             return "未知";
         }
     }
+
+    public static String transferDutyCategoryName(String dutyCategory){
+        if("Z".equals(dutyCategory)){
+            return "";
+        }else {
+            return dutyCategory;
+        }
+    }
 }

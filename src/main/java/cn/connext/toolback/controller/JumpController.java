@@ -131,46 +131,6 @@ public class JumpController {
 
     @RequestMapping("/tomyarticle")
     public String tomyarticle(HttpSession session, Model model, HttpServletResponse response){
-        User user= (User) session.getAttribute("rs_user");
-        if (user==null){
-            response.setContentType("text/html; charset=UTF-8"); //转码
-            PrintWriter out = null;
-            try {
-                out = response.getWriter();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            out.flush();
-            out.println("<script>");
-            out.println("alert('您当前尚未登陆，请先登录！');");
-            out.println("history.back();");
-            out.println("</script>");
-            return "article";
-        }
-        int id=user.getId();
-        //不启用排序
-//        List<Article> articleList=articleService.selectArticleByUserId(id,0);
-        //启用排序
-        List<Article> articleList=articleService.selectAllArticleByUserId(id);
-        List<ShowArticle> list=new ArrayList<ShowArticle>();
-        for(Article t:articleList){
-            ShowArticle showArticle=new ShowArticle();
-            showArticle.setArticle_id(t.getId());
-            showArticle.setArticle_author(t.getAuthor());
-            showArticle.setArticle_date(t.getDate());
-            showArticle.setArticle_title(t.getTitle());
-            showArticle.setCount(replyService.selectAllReplyByArticleID(t.getId()).size()==0?0:replyService.selectAllReplyByArticleID(t.getId()).size());
-            showArticle.setReply_date(replyService.selectAllReplyByArticleID(t.getId()).size()==0?null:replyService.selectAllReplyByArticleID(t.getId()).get(0).getDate());
-            list.add(showArticle);
-        }
-        list= ArticleSort.articleSort(list);
-        if (list.size()>0&&list.get(0)!=null)
-        model.addAttribute("list0",list.get(0));
-        if (list.size()>1&&list.get(1)!=null)
-        model.addAttribute("list1",list.get(1));
-        if (list.size()>2&&list.get(2)!=null)
-        model.addAttribute("list2",list.get(2));
-        model.addAttribute("mypage",1);
         return "myarticle";
     }
 

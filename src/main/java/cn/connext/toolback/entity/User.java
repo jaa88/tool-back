@@ -1,18 +1,16 @@
 package cn.connext.toolback.entity;
 
+import java.math.BigInteger;
+
 /**
  *  用户类，对应user表
  */
 public class User {
-    private int id;
-    //身份证号
-    private String idcardNo;
-    //年龄
-    private int age;
+    private BigInteger id;
     //姓名
     private String name;
     //警号
-    private long policeNo;
+    private String policeNo;
     //手机号
     private String phoneNumber;
     //用户类别  1 领导 2事故民警 3铁骑民警 4外围民警 5其他民警 6 铁骑辅警 7 重骑辅警 8 外围辅警 9 其他辅警
@@ -20,8 +18,37 @@ public class User {
     private String userCategoryName;
     //在职状态  1 在职 2离职 3调离
     private int serviceStatus;
-    //值班组别 A B C D
-    private Character dutyCategory;
+    //值班组别 A B C D    Z不参与
+    private String dutyCategory;
+    private String dutyCategoryName;
+    //排序用
+    private Integer orderNum;
+
+    private Integer deleteFlag;
+
+    public Integer getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(Integer deleteFlag) {
+        this.deleteFlag = deleteFlag;
+    }
+
+    public Integer getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
+    }
+
+    public String getDutyCategoryName() {
+        return dutyCategoryName;
+    }
+
+    public void setDutyCategoryName(String dutyCategoryName) {
+        this.dutyCategoryName = dutyCategoryName;
+    }
 
     public String getUserCategoryName() {
         return userCategoryName;
@@ -31,19 +58,19 @@ public class User {
         this.userCategoryName = userCategoryName;
     }
 
-    public int getId() {
+    public BigInteger getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 
-    public long getPoliceNo() {
+    public String getPoliceNo() {
         return policeNo;
     }
 
-    public void setPoliceNo(long policeNo) {
+    public void setPoliceNo(String policeNo) {
         this.policeNo = policeNo;
     }
 
@@ -53,22 +80,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getIdcardNo() {
-        return idcardNo;
-    }
-
-    public void setIdcardNo(String idcardNo) {
-        this.idcardNo = idcardNo;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 
     public String getPhoneNumber() {
@@ -95,11 +106,11 @@ public class User {
         this.serviceStatus = serviceStatus;
     }
 
-    public Character getDutyCategory() {
+    public String getDutyCategory() {
         return dutyCategory;
     }
 
-    public void setDutyCategory(Character dutyCategory) {
+    public void setDutyCategory(String dutyCategory) {
         this.dutyCategory = dutyCategory;
     }
 }

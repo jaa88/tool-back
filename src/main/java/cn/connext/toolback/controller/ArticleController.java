@@ -77,30 +77,6 @@ public class ArticleController {
                               @RequestParam("editArticleContent")String editArticleContent,
                               @RequestParam("articleId")int articleId,
                               HttpSession session){
-        User user= (User) session.getAttribute("rs_user");
-        if (user==null){
-            String jsonStr = "{\"errorCode\":\"0\",\"errorMessage\":\"尚未登陆！\"}";
-            return jsonStr;
-        }
-        if(! (license.hasArticlePermission("编辑自己文章",user))&&! (license.hasArticlePermission("编辑他人文章",user)))
-        {
-            String jsonStr = "{\"errorCode\":\"2\",\"errorMessage\":\"没有该权限！\"}";
-            return jsonStr;
-        }
-        if (user.getId()==Integer.valueOf(editArticleId)){
-            if(! (license.hasArticlePermission("编辑自己文章",user))){
-                String jsonStr = "{\"errorCode\":\"3\",\"errorMessage\":\"没有修改自己文章的权限！\"}";
-                return jsonStr;
-            }
-        }
-        else{
-            if(! (license.hasArticlePermission("编辑他人文章",user))){
-                String jsonStr = "{\"errorCode\":\"4\",\"errorMessage\":\"没有修改他人文章的权限！\"}";
-                return jsonStr;
-            }
-        }
-        Date date=new Date();
-        articleService.updateArticle(editArticleTitle,date,editArticleContent,articleId);
         String jsonStr = "{\"errorCode\":\"1\",\"errorMessage\":\"更新成功！\"}";
         return jsonStr;
     }
@@ -109,28 +85,6 @@ public class ArticleController {
     @ResponseBody
     public String editArticle(@RequestParam("articleId")int articleId,@RequestParam("deleteArticleId")int deleteArticleId,
                               HttpSession session){
-        User user= (User) session.getAttribute("rs_user");
-        if (user==null){
-            String jsonStr = "{\"errorCode\":\"0\",\"errorMessage\":\"尚未登陆！\"}";
-            return jsonStr;
-        }
-        if(! (license.hasArticlePermission("删除自己文章",user))&&! (license.hasArticlePermission("删除他人文章",user)))
-        {
-            String jsonStr = "{\"errorCode\":\"2\",\"errorMessage\":\"没有该权限！\"}";
-            return jsonStr;
-        }
-        if (user.getId()==Integer.valueOf(deleteArticleId)){
-            if(! (license.hasArticlePermission("删除自己文章",user))){
-                String jsonStr = "{\"errorCode\":\"3\",\"errorMessage\":\"没有删除自己文章权限！\"}";
-                return jsonStr;
-            }
-        }else{
-            if(! (license.hasArticlePermission("删除他人文章",user))){
-                String jsonStr = "{\"errorCode\":\"4\",\"errorMessage\":\"没有删除他人文章权限！\"}";
-                return jsonStr;
-            }
-        }
-        articleService.deleteArticle(articleId);
         String jsonStr = "{\"errorCode\":\"1\",\"errorMessage\":\"删除成功！\"}";
         return jsonStr;
     }

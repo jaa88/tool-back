@@ -12,13 +12,23 @@ public class QueryUserListParam {
     private Integer formalOrNot;
     //在职状态  1 在职 2离职 3调离
     private int serviceStatus;
-    //值班组别 A B C D
-    private Character dutyCategory;
+    //值班组别 A B C D      Z(不参与值班)
+    private String dutyCategory;
+    //用户类别
+    private Integer userCategory;
 
     private int pageNo;
     private int pageSize;
     //起始 (pageNo-1)*pageSize
     private int startIndex;
+
+    public Integer getUserCategory() {
+        return userCategory;
+    }
+
+    public void setUserCategory(Integer userCategory) {
+        this.userCategory = userCategory;
+    }
 
     public int getStartIndex() {
         return startIndex;
@@ -60,11 +70,11 @@ public class QueryUserListParam {
         this.serviceStatus = serviceStatus;
     }
 
-    public Character getDutyCategory() {
+    public String getDutyCategory() {
         return dutyCategory;
     }
 
-    public void setDutyCategory(Character dutyCategory) {
+    public void setDutyCategory(String dutyCategory) {
         this.dutyCategory = dutyCategory;
     }
 

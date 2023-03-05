@@ -28,7 +28,7 @@ public class License {
     User_roleService user_roleService;
 
     public boolean hasArticlePermission(String permission, User user){
-        int id=user.getId();
+        int id=1;
     System.out.println(id);
         User_role user_role=user_roleService.queryByUserId(id);
         Role role=roleService.selectRoleById(user_role.getRoleid());

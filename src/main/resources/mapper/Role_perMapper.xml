@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.connext.yonyong.yonyongbbs.dao.Role_perDao">
+<mapper namespace="cn.connext.toolback.dao.Role_perDao">
     <resultMap type="Role_per" id="role_perMap" >
         <id property="roleid" column="roleid"/>
         <result property="perid" column="perid"/>

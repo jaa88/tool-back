@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.connext.yonyong.yonyongbbs.dao.ArticleDao">
+<mapper namespace="cn.connext.toolback.dao.ArticleDao">
         <resultMap type="Article" id="articleMap" >
             <id property="id" column="id"/>
             <result property="userid" column="userid"/>

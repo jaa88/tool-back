@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.connext.yonyong.yonyongbbs.dao.UserDao">
+<mapper namespace="cn.connext.toolback.dao.UserDao">
     <resultMap type="User" id="userMap" >
         <id property="id" column="id"/>
         <result property="policeNo" column="police_no"/>
@@ -15,7 +15,7 @@
         <result property="serviceStatus" column="service_status"/>
     </resultMap>
 
-    <select id="selectAllUserCount" parameterType="cn.connext.yonyong.yonyongbbs.entity.manage.QueryUserListParam" resultType="int">
+    <select id="selectAllUserCount" parameterType="cn.connext.toolback.entity.manage.QueryUserListParam" resultType="int">
           select count(1) from user
 
         <where>
@@ -27,7 +27,7 @@
 
     </select>
 
-    <select id="selectUserListByParam" parameterType="cn.connext.yonyong.yonyongbbs.entity.manage.QueryUserListParam" resultMap="userMap">
+    <select id="selectUserListByParam" parameterType="cn.connext.toolback.entity.manage.QueryUserListParam" resultMap="userMap">
           select * from user
         <where>
             <if test="name != null and  name !=''">

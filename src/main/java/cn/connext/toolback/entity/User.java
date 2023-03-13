@@ -21,10 +21,29 @@ public class User {
     //值班组别 A B C D    Z不参与
     private String dutyCategory;
     private String dutyCategoryName;
+    //值班区域 1 城厢 2高新区
+    private Integer dutyArea;
+    private String dutyAreaName;
     //排序用
     private Integer orderNum;
 
     private Integer deleteFlag;
+
+    public String getDutyAreaName() {
+        return dutyAreaName;
+    }
+
+    public void setDutyAreaName(String dutyAreaName) {
+        this.dutyAreaName = dutyAreaName;
+    }
+
+    public Integer getDutyArea() {
+        return dutyArea;
+    }
+
+    public void setDutyArea(Integer dutyArea) {
+        this.dutyArea = dutyArea;
+    }
 
     public Integer getDeleteFlag() {
         return deleteFlag;

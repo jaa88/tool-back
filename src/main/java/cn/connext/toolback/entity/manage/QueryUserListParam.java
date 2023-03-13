@@ -17,10 +17,20 @@ public class QueryUserListParam {
     //用户类别
     private Integer userCategory;
 
+    private Integer dutyArea;
+
     private int pageNo;
     private int pageSize;
     //起始 (pageNo-1)*pageSize
     private int startIndex;
+
+    public Integer getDutyArea() {
+        return dutyArea;
+    }
+
+    public void setDutyArea(Integer dutyArea) {
+        this.dutyArea = dutyArea;
+    }
 
     public Integer getUserCategory() {
         return userCategory;

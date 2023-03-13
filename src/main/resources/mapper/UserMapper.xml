@@ -9,6 +9,7 @@
         <result property="name" column="name"/>
         <result property="phoneNumber" column="phone_number"/>
         <result property="dutyCategory" column="duty_category"/>
+        <result property="dutyArea" column="duty_area"/>
         <result property="userCategory" column="user_category"/>
         <result property="orderNum" column="order_num"/>
     </resultMap>
@@ -35,6 +36,9 @@
                 and duty_category = #{dutyCategory}
             </if>
 
+            <if test="dutyArea != null and  dutyArea !=''">
+                and duty_area = #{dutyArea}
+            </if>
         </where>
     </select>
 
@@ -57,6 +61,10 @@
             <if test="dutyCategory != null and  dutyCategory !=''">
                 and duty_category = #{dutyCategory}
             </if>
+
+            <if test="dutyArea != null and  dutyArea !=''">
+                and duty_area = #{dutyArea}
+            </if>
         </where>
 
         order by order_num ,id
@@ -64,11 +72,11 @@
     </select>
 
     <insert id="addUser"  parameterType="cn.connext.toolback.entity.User">
-            insert into user (police_no, name,  phone_number,  user_category, duty_category, order_num)  value (#{policeNo},#{name},#{phoneNumber},#{userCategory},#{dutyCategory},#{orderNum})
+            insert into user (police_no, name,  phone_number,  user_category, duty_category, duty_area,order_num)  value (#{policeNo},#{name},#{phoneNumber},#{userCategory},#{dutyCategory},#{dutyArea},#{orderNum})
     </insert>
 
     <update id="editUser" parameterType="cn.connext.toolback.entity.User">
-            update user set police_no=#{policeNo},name=#{name}, phone_number=#{phoneNumber},
+            update user set police_no=#{policeNo},name=#{name}, phone_number=#{phoneNumber},duty_area=#{dutyArea},
             user_category=#{userCategory}, duty_category=#{dutyCategory}, order_num=#{orderNum} where id=#{id}
     </update>
 

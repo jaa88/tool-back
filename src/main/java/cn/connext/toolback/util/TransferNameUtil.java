@@ -32,4 +32,12 @@ public class TransferNameUtil {
             return dutyCategory;
         }
     }
+
+    public static String transferDutyAreaName(int dutyArea){
+        if(dutyArea==1){
+            return "城厢";
+        }else{
+            return "高新";
+        }
+    }
 }

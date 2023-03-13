@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService{
             for(User user:userList){
                 user.setUserCategoryName(TransferNameUtil.transferUserCategoryName(user.getUserCategory()));
                 user.setDutyCategoryName(TransferNameUtil.transferDutyCategoryName(user.getDutyCategory()));
+                user.setDutyAreaName(TransferNameUtil.transferDutyAreaName(user.getDutyArea()));
             }
         }
         return userList;

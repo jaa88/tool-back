@@ -25,10 +25,10 @@ public class ArrangeClassController {
     //查询最新的排班信息
     @RequestMapping("/queryTargetDateArrangeClass")
     @ResponseBody
-    public ResultResponse queryLatestClassInfo(@RequestParam(value = "targetDate",required = false)Date targetDate, HttpServletRequest request){
+    public ResultResponse queryLatestClassInfo(@RequestParam(value = "targetDate",required = false)Long targetDateMills, HttpServletRequest request){
         ResultResponse response=new ResultResponse();
         //比如传入的是8：30以后，就是当天的班次，不然就是前一个班次的
-        Date trueDutyDate=CommonUtil.getTrueDutyClassDate(targetDate!=null?targetDate:new Date());
+        Date trueDutyDate=CommonUtil.getTrueDutyClassDate(targetDateMills!=null?new Date(targetDateMills):new Date());
         //看看有没有这个排班
         ArrangeClass arrangeClass =arrangeClassService.selectTargetDateArrangeClass(trueDutyDate);
         response.setResult(arrangeClass);

@@ -39,6 +39,13 @@
             <if test="dutyArea != null and  dutyArea !=''">
                 and duty_area = #{dutyArea}
             </if>
+
+            <if test="idList != null and  idList.size() != 0">
+                and id in
+                <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
         </where>
     </select>
 
@@ -64,6 +71,13 @@
 
             <if test="dutyArea != null and  dutyArea !=''">
                 and duty_area = #{dutyArea}
+            </if>
+
+            <if test="idList != null and  idList.size() != 0">
+                and id in
+                <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
             </if>
         </where>
 

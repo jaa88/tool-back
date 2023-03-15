@@ -6,7 +6,7 @@ import java.math.BigInteger;
  *  用户类，对应user表
  */
 public class User {
-    private BigInteger id;
+    private Long id;
     //姓名
     private String name;
     //警号
@@ -77,11 +77,11 @@ public class User {
         this.userCategoryName = userCategoryName;
     }
 
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

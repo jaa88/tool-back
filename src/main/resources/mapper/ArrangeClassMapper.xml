@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.connext.toolback.dao.ArrangeClassDao">
+    <resultMap type="ArrangeClass" id="arrangeClassMap" >
+        <id property="id" column="id"/>
+        <result property="curDutyCategoty" column="cur_duty_category"/>
+        <result property="curDayZeroTime" column="cur_day_zero_time"/>
+        <result property="chengxiangDayTimePolice" column="chenxiang_daytime_police"/>
+        <result property="gaoxinDayTimePolice" column="chenxiang_night_police"/>
+        <result property="chengxiangNightTimePolice" column="gaoxin_daytime_police"/>
+        <result property="gaoxinNightTimePolice" column="gaoxin_night_police"/>
+        <result property="chengxiangDayTimeRule" column="chenxiang_daytime_rule"/>
+        <result property="chengxiangNightTimeRule" column="chenxiang_night_rule"/>
+        <result property="gaoxinDayTimeRule" column="gaoxin_daytime_rule"/>
+        <result property="gaoxinNightTimeRule" column="gaoxin_night_rule"/>
+    </resultMap>
+
+    <select id="selectTargetDateArrangeClass" parameterType="date" resultMap="arrangeClassMap">
+         select * from arrange_class where
+        delete_flag=1 and cur_day_zero_time=#{curDayZeroTime}
+        limit 1
+    </select>
+
+    <insert id="addArrangeClass"  parameterType="cn.connext.toolback.entity.manage.ArrangeClass">
+            insert into arrange_class
+            (cur_duty_category, cur_day_zero_time, chenxiang_daytime_police, chenxiang_night_police, gaoxin_daytime_police, gaoxin_night_police, chenxiang_daytime_rule, chenxiang_night_rule, gaoxin_daytime_rule, gaoxin_night_rule, operate_time)
+            VALUE
+             (#{cur_duty_category},#{cur_day_zero_time},#{chenxiang_daytime_police},#{chenxiang_night_police},#{gaoxin_daytime_police},#{gaoxin_night_police},#{chenxiang_daytime_rule},#{chenxiang_night_rule},#{gaoxin_daytime_rule},#{gaoxin_night_rule})
+    </insert>
+</mapper>

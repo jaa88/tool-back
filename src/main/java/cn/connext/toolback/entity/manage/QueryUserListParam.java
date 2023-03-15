@@ -1,5 +1,7 @@
 package cn.connext.toolback.entity.manage;
 
+import java.util.List;
+
 /**
  *  查询用户列表
  */
@@ -23,6 +25,16 @@ public class QueryUserListParam {
     private int pageSize;
     //起始 (pageNo-1)*pageSize
     private int startIndex;
+
+    private List<Long> idList;
+
+    public List<Long> getIdList() {
+        return idList;
+    }
+
+    public void setIdList(List<Long> idList) {
+        this.idList = idList;
+    }
 
     public Integer getDutyArea() {
         return dutyArea;

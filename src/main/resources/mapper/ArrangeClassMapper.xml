@@ -8,8 +8,8 @@
         <result property="curDutyCategoty" column="cur_duty_category"/>
         <result property="curDayZeroTime" column="cur_day_zero_time"/>
         <result property="chengxiangDayTimePolice" column="chenxiang_daytime_police"/>
-        <result property="gaoxinDayTimePolice" column="chenxiang_night_police"/>
-        <result property="chengxiangNightTimePolice" column="gaoxin_daytime_police"/>
+        <result property="gaoxinDayTimePolice" column="gaoxin_daytime_police"/>
+        <result property="chengxiangNightTimePolice" column="chenxiang_night_police"/>
         <result property="gaoxinNightTimePolice" column="gaoxin_night_police"/>
         <result property="chengxiangDayTimeRule" column="chenxiang_daytime_rule"/>
         <result property="chengxiangNightTimeRule" column="chenxiang_night_rule"/>

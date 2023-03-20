@@ -13,7 +13,7 @@ public class User {
     private String policeNo;
     //手机号
     private String phoneNumber;
-    //用户类别  1 领导 2事故民警 3铁骑民警 4外围民警 5其他民警 6 铁骑辅警 7 重骑辅警 8 外围辅警 9 其他辅警
+    //用户类别  101 领导 102事故民警 103铁骑民警 104外围民警 105其他民警 201 铁骑辅警 202重骑辅警 203外围辅警 204机动 205城警 206事故 207勤务 208源头 209法制 210内勤 211窗口 212农副 213其他
     private Integer userCategory;
     private String userCategoryName;
     //在职状态  1 在职 2离职 3调离

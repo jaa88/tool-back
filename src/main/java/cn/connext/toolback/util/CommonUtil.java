@@ -1,5 +1,8 @@
 package cn.connext.toolback.util;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -8,18 +11,19 @@ public class CommonUtil {
     private static final long TIME_ZONE_OFFSET = TimeZone.getDefault().getRawOffset();
 
     //考虑到勤务指挥室8：30换班
-    private static final long eightThirtyMills=30600L;
+    private static final long eightThirtyMills=30600000L;
 
     /**
      * 获取指定时间当日 00:00:00 时刻的时间戳
      */
     public static Long getDayZeroTimestamp(Date date) {
-        if (date == null) {
-            return null;
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return new SimpleDateFormat("yyyy-MM-dd").parse(simpleDateFormat.format(date)).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0L;
         }
-        /* 距离当日 00:00:00 时刻毫秒数 */
-        long dayOffsetTimestamp = date.getTime() % MILLIS_PER_DAY;
-        return date.getTime() - dayOffsetTimestamp;
     }
 
     /**

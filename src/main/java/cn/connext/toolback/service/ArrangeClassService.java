@@ -9,5 +9,7 @@ public interface ArrangeClassService {
      * 查询对应班次表内有没有排班信息
      * @return
      */
-    ArrangeClass selectTargetDateArrangeClass(Date date);
+    ArrangeClass selectTargetDateArrangeClass(String dateString);
+
+    void checkAndInsertArrangeClass();
 }

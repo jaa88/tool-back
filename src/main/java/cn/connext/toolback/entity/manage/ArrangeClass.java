@@ -11,8 +11,8 @@ import java.util.Map;
  */
 public class ArrangeClass {
     private Long id;
-    private String curDutyCategoty;//当天值班班组 A B C D
-    private Date curDayZeroTime;//当天值班日期的零点
+    private String curDutyCategory;//当天值班班组 A B C D
+    private String curDayZeroTime;//当天值班日期的零点
     private String chengxiangDayTimePolice;//代表值班的民警id集合直接id拼接，逗号分割
     private String gaoxinDayTimePolice;
     private String chengxiangNightTimePolice;
@@ -39,19 +39,19 @@ public class ArrangeClass {
         this.id = id;
     }
 
-    public String getCurDutyCategoty() {
-        return curDutyCategoty;
+    public String getCurDutyCategory() {
+        return curDutyCategory;
     }
 
-    public void setCurDutyCategoty(String curDutyCategoty) {
-        this.curDutyCategoty = curDutyCategoty;
+    public void setCurDutyCategory(String curDutyCategory) {
+        this.curDutyCategory = curDutyCategory;
     }
 
-    public Date getCurDayZeroTime() {
+    public String getCurDayZeroTime() {
         return curDayZeroTime;
     }
 
-    public void setCurDayZeroTime(Date curDayZeroTime) {
+    public void setCurDayZeroTime(String curDayZeroTime) {
         this.curDayZeroTime = curDayZeroTime;
     }
 

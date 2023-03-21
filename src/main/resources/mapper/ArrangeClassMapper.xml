@@ -5,7 +5,7 @@
 <mapper namespace="cn.connext.toolback.dao.ArrangeClassDao">
     <resultMap type="ArrangeClass" id="arrangeClassMap" >
         <id property="id" column="id"/>
-        <result property="curDutyCategoty" column="cur_duty_category"/>
+        <result property="curDutyCategory" column="cur_duty_category"/>
         <result property="curDayZeroTime" column="cur_day_zero_time"/>
         <result property="chengxiangDayTimePolice" column="chenxiang_daytime_police"/>
         <result property="gaoxinDayTimePolice" column="gaoxin_daytime_police"/>
@@ -17,16 +17,24 @@
         <result property="gaoxinNightTimeRule" column="gaoxin_night_rule"/>
     </resultMap>
 
-    <select id="selectTargetDateArrangeClass" parameterType="date" resultMap="arrangeClassMap">
+    <select id="selectTargetDateArrangeClass" parameterType="string" resultMap="arrangeClassMap">
          select * from arrange_class where
         delete_flag=1 and cur_day_zero_time=#{curDayZeroTime}
         limit 1
     </select>
 
+    <select id="selectLastArrangeClassByDutyCategory" parameterType="string" resultMap="arrangeClassMap">
+         select * from arrange_class where
+        delete_flag=1 and cur_duty_category=#{dutyCategory} order by id desc
+        limit 1
+    </select>
+
+
+
     <insert id="addArrangeClass"  parameterType="cn.connext.toolback.entity.manage.ArrangeClass">
             insert into arrange_class
             (cur_duty_category, cur_day_zero_time, chenxiang_daytime_police, chenxiang_night_police, gaoxin_daytime_police, gaoxin_night_police, chenxiang_daytime_rule, chenxiang_night_rule, gaoxin_daytime_rule, gaoxin_night_rule, operate_time)
             VALUE
-             (#{cur_duty_category},#{cur_day_zero_time},#{chenxiang_daytime_police},#{chenxiang_night_police},#{gaoxin_daytime_police},#{gaoxin_night_police},#{chenxiang_daytime_rule},#{chenxiang_night_rule},#{gaoxin_daytime_rule},#{gaoxin_night_rule})
+             (#{curDutyCategory},#{curDayZeroTime},#{chengxiangDayTimePolice},#{chengxiangNightTimePolice},#{gaoxinDayTimePolice},#{gaoxinNightTimePolice},#{chengxiangDayTimeRule},#{chengxiangNightTimeRule},#{gaoxinDayTimeRule},#{gaoxinNightTimeRule},now())
     </insert>
 </mapper>

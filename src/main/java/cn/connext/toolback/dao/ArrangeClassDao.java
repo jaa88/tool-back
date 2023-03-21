@@ -13,5 +13,9 @@ import java.util.List;
  */
 @Repository
 public interface ArrangeClassDao {
-    ArrangeClass selectTargetDateArrangeClass(Date date);
+    ArrangeClass selectTargetDateArrangeClass(String date);
+
+    ArrangeClass selectLastArrangeClassByDutyCategory(String dutyCategory);
+
+    int addArrangeClass(ArrangeClass arrangeClass);
 }

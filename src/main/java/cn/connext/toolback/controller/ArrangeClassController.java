@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @CrossOrigin
@@ -30,7 +31,7 @@ public class ArrangeClassController {
         //比如传入的是8：30以后，就是当天的班次，不然就是前一个班次的
         Date trueDutyDate=CommonUtil.getTrueDutyClassDate(targetDateMills!=null?new Date(targetDateMills):new Date());
         //看看有没有这个排班
-        ArrangeClass arrangeClass =arrangeClassService.selectTargetDateArrangeClass(trueDutyDate);
+        ArrangeClass arrangeClass =arrangeClassService.selectTargetDateArrangeClass(new SimpleDateFormat("yyyy-MM-dd").format(trueDutyDate));
         response.setResult(arrangeClass);
 
         System.out.println(arrangeClass.getChengxiangDayTimePolice());

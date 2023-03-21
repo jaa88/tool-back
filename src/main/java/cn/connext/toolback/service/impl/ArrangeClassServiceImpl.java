@@ -9,10 +9,15 @@ import cn.connext.toolback.entity.manage.QueryUserListParam;
 import cn.connext.toolback.enums.UserCategoryEnum;
 import cn.connext.toolback.service.ArrangeClassService;
 import cn.connext.toolback.service.UserService;
+import cn.connext.toolback.util.CommonUtil;
 import cn.connext.toolback.util.TransferNameUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -23,8 +28,8 @@ public class ArrangeClassServiceImpl implements ArrangeClassService {
     UserService userService;
 
     @Override
-    public ArrangeClass selectTargetDateArrangeClass(Date date) {
-        ArrangeClass arrangeClass=arrangeClassDao.selectTargetDateArrangeClass(date);
+    public ArrangeClass selectTargetDateArrangeClass(String dateString) {
+        ArrangeClass arrangeClass=arrangeClassDao.selectTargetDateArrangeClass(dateString);
         //取所有的用户id
         if(arrangeClass!=null){
             List<Long> userIdList=getUserIdListFromArrangeClass(arrangeClass);
@@ -36,6 +41,66 @@ public class ArrangeClassServiceImpl implements ArrangeClassService {
             arrangeClass.setUserMap(converToUserMap(userList));
         }
         return arrangeClass;
+    }
+
+    /**
+     * 逻辑：检查一下，当天的有没有，如果没有生成一条
+     * 前一天的是什么，A B C D为一个循环，如果昨天是C班，那么今天是D班
+     * 如果今天是D班，取上一个D班的，把rule里的【1，2，3】也循环一下
+     */
+    @Override
+    public void checkAndInsertArrangeClass() {
+        //取这个时间的当天0点，不考虑8：30的排班情况
+        Date todayDate= new Date(CommonUtil.getDayZeroTimestamp(new Date()));
+        ArrangeClass arrangeClass=arrangeClassDao.selectTargetDateArrangeClass(new SimpleDateFormat("yyyy-MM-dd").format(todayDate));
+        if(arrangeClass==null){
+            //查昨天的班次
+            String yesterdayDateStr=new SimpleDateFormat("yyyy-MM-dd").format(new Date(todayDate.getTime()-3600*24*1000));
+            ArrangeClass yesterdayArrangeClass=arrangeClassDao.selectTargetDateArrangeClass(yesterdayDateStr);
+            if(yesterdayArrangeClass!=null){
+                String todayDutyCategory=getTodayDutyCategory(yesterdayArrangeClass.getCurDutyCategory());
+                if(todayDutyCategory!=null){
+                    //获取到今天的值班组后，取最近的一次值班组信息
+                    ArrangeClass lastDutyCategoryArrangeClass=arrangeClassDao.selectLastArrangeClassByDutyCategory(todayDutyCategory);
+                    if(lastDutyCategoryArrangeClass!=null){
+                        ArrangeClass newArrangeClass=generateNewArrangeClass(lastDutyCategoryArrangeClass);
+                        arrangeClassDao.addArrangeClass(newArrangeClass);
+                    }
+                }
+            }
+        }else{
+            System.out.println("今日已排班");
+        }
+    }
+
+    private ArrangeClass generateNewArrangeClass(ArrangeClass oldArrangeClass){
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            ArrangeClass newArrangeClass= objectMapper.readValue(objectMapper.writeValueAsString(oldArrangeClass),ArrangeClass.class);
+            newArrangeClass.setCurDayZeroTime(new SimpleDateFormat("yyyy-MM-dd").format(new Date(CommonUtil.getDayZeroTimestamp(new Date()))));
+            newArrangeClass.setChengxiangDayTimeRule(chengeRuleSequence(oldArrangeClass.getChengxiangDayTimeRule()));
+            newArrangeClass.setChengxiangNightTimeRule(chengeRuleSequence(oldArrangeClass.getChengxiangNightTimeRule()));
+            newArrangeClass.setGaoxinDayTimeRule(chengeRuleSequence(oldArrangeClass.getGaoxinDayTimeRule()));
+            newArrangeClass.setGaoxinNightTimeRule(chengeRuleSequence(oldArrangeClass.getGaoxinNightTimeRule()));
+            return newArrangeClass;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return oldArrangeClass;
+        }
+    }
+
+    private String chengeRuleSequence(String rule){
+        if(rule==null || rule.indexOf(';')<=-1){
+            return rule;
+        }
+        String[] ruleSplitArr=rule.split(";");
+        StringBuilder sb=new StringBuilder();
+        for(int i=1;i<ruleSplitArr.length;i++){
+            sb.append(ruleSplitArr[i]);
+            sb.append(";");
+        }
+        sb.append(ruleSplitArr[0]);
+        return sb.toString();
     }
 
     //获取所有用户的id
@@ -69,5 +134,18 @@ public class ArrangeClassServiceImpl implements ArrangeClassService {
             }
         }
         return userMap;
+    }
+
+    private String getTodayDutyCategory(String yesterdayDutyCategory){
+        if("A".equals(yesterdayDutyCategory)){
+            return "B";
+        }else if("B".equals(yesterdayDutyCategory)){
+            return "C";
+        }else if("C".equals(yesterdayDutyCategory)){
+            return "D";
+        }else if("D".equals(yesterdayDutyCategory)){
+            return "A";
+        }
+        return null;
     }
 }

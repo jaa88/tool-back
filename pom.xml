@@ -58,12 +58,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-        <!--&lt;!&ndash; 连接池&ndash;&gt;-->
-        <!--<dependency>-->
-        <!--<groupId>com.mchange</groupId>-->
-        <!--<artifactId>c3p0</artifactId>-->
-        <!--<version>0.9.5.2</version>-->
-        <!--</dependency>-->
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.1.1</version>
+        </dependency>
 
         <!--修改-->
         <!-- druid数据库连接池 -->

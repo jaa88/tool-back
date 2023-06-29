@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.connext.toolback.dao.ArrangeClassDao">
-    <resultMap type="ArrangeClass" id="arrangeClassMap" >
+<mapper namespace="cn.connext.toolback.dao.db1.ArrangeClassDao">
+    <resultMap type="cn.connext.toolback.entity.manage.ArrangeClass" id="arrangeClassMap" >
         <id property="id" column="id"/>
         <result property="curDutyCategory" column="cur_duty_category"/>
         <result property="curDayZeroTime" column="cur_day_zero_time"/>

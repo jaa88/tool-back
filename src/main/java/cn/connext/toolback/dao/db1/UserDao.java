@@ -1,4 +1,4 @@
-package cn.connext.toolback.dao;
+package cn.connext.toolback.dao.db1;
 
 import cn.connext.toolback.entity.User;
 import cn.connext.toolback.entity.manage.QueryUserListParam;
@@ -21,4 +21,14 @@ public interface UserDao {
     int editUser(User user);
 
     int deleteUser(User user);
+
+    /**
+     * 查询所有用户
+     * @return
+     */
+    List<User> selectAllUser();
+
+    int selectAllCount();
+
+
 }

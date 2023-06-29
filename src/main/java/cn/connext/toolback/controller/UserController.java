@@ -22,6 +22,19 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @RequestMapping("/queryAllUser")
+    @ResponseBody
+    public String queryUserList(HttpServletRequest request){
+        List<User> list=userService.selectAllUser();
+
+        int total=userService.selectAllCount();
+
+        System.out.println(total);
+        System.out.println(list.size());
+        return list.toString();
+    }
+
+
     //查询用户列表
     @RequestMapping("/queryUserList")
     @ResponseBody

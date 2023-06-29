@@ -1,4 +1,4 @@
-package cn.connext.toolback.dao;
+package cn.connext.toolback.dao.db1;
 
 import cn.connext.toolback.entity.User;
 import cn.connext.toolback.entity.manage.ArrangeClass;

@@ -22,4 +22,8 @@ public interface UserService {
     Integer editUser(User user);
 
     Integer deleteUserInfo(User user);
+
+    List<User> selectAllUser();
+
+    int selectAllCount();
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.connext.toolback.dao.db2.FoodDao">
+    <resultMap type="cn.connext.toolback.entity.Food" id="foodMap" >
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+
+    <select id="selectAllCount" resultType="int">
+        select count(1) from public.food
+    </select>
+
+    <select id="selectAllFood"  resultMap="foodMap">
+        select * from public.food
+    </select>
+</mapper>

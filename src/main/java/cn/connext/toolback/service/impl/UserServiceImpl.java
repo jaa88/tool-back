@@ -2,7 +2,7 @@ package cn.connext.toolback.service.impl;
 
 import cn.connext.toolback.enums.UserCategoryEnum;
 import cn.connext.toolback.util.TransferNameUtil;
-import cn.connext.toolback.dao.UserDao;
+import cn.connext.toolback.dao.db1.UserDao;
 import cn.connext.toolback.entity.User;
 import cn.connext.toolback.entity.manage.QueryUserListParam;
 import cn.connext.toolback.service.UserService;
@@ -57,5 +57,15 @@ public class UserServiceImpl implements UserService{
     @Override
     public Integer deleteUserInfo(User user) {
         return userDao.deleteUser(user);
+    }
+
+    @Override
+    public List<User> selectAllUser() {
+        return userDao.selectAllUser();
+    }
+
+    @Override
+    public int selectAllCount() {
+        return userDao.selectAllCount();
     }
 }

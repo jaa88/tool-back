@@ -1,17 +1,28 @@
 server:
   port: 8081
 
+
 spring:
   datasource:
-    druid:
-      url: jdbc:mysql://47.98.248.63:3306/tctptool?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false&allowMultiQueries=true
-      username: root
-      password: 87654321
+    db1:
+      jdbc-url: jdbc:postgresql://127.0.0.1:5432/workdb
+      username: postgres
+      password: 876606
       initial-size: 1
       min-idle: 1
       max-active: 20
       test-on-borrow: true
-      driver-class-name: com.mysql.cj.jdbc.Driver
+      driver-class-name: org.postgresql.Driver
+
+    db2:
+      jdbc-url: jdbc:postgresql://127.0.0.1:5432/workdb2
+      username: postgres
+      password: 876606
+      initial-size: 1
+      min-idle: 1
+      max-active: 20
+      test-on-borrow: true
+      driver-class-name: org.postgresql.Driver
 
   thymeleaf:
     cache: false
@@ -31,5 +42,5 @@ spring:
 mybatis:
   type-aliases-package: cn.connext.toolback.entity
   mapper-locations: classpath:mapper/*.xml
-  #configuration:
-    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

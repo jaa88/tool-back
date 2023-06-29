@@ -1,22 +1,17 @@
 package cn.connext.toolback.service.impl;
 
-import cn.connext.toolback.dao.ArrangeClassDao;
-import cn.connext.toolback.dao.UserDao;
+import cn.connext.toolback.dao.db1.ArrangeClassDao;
 import cn.connext.toolback.entity.User;
 import cn.connext.toolback.entity.manage.ArrangeClass;
-import cn.connext.toolback.entity.manage.QueryArrangeClassParam;
 import cn.connext.toolback.entity.manage.QueryUserListParam;
-import cn.connext.toolback.enums.UserCategoryEnum;
 import cn.connext.toolback.service.ArrangeClassService;
 import cn.connext.toolback.service.UserService;
 import cn.connext.toolback.util.CommonUtil;
-import cn.connext.toolback.util.TransferNameUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
